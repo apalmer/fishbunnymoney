@@ -1,1 +1,17 @@
-<html><body>fish bunny money</body></html>
+<html>
+	<body>
+		<h1>fish bunny money</h1>
+		<div id="gallery"></div>
+		<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+		<script>
+			$(document).ready(function(){
+				$.get(
+					'http://backend.deviantart.com/rss.xml?q=gallery:fishbunnymoney',
+					function(data){
+						window.deviantRss = data;
+					}
+				);
+			});	
+		</script>
+	</body>
+</html>
