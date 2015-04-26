@@ -3,14 +3,16 @@
 		<h1>fish bunny money</h1>
 		<div id="gallery"></div>
 		<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+		<script src="getDeviations.js"></script>
 		<script>
 			$(document).ready(function(){
-				$.get(
-					'http://backend.deviantart.com/rss.xml?q=gallery:fishbunnymoney',
-					function(data){
-						window.deviantRss = data;
-					}
-				);
+				var $gallery = $('#gallery');
+				var processDeviations = function(deviations){ 
+					$.each(deviations, function( index, deviation) {
+  						$gallery.append('<img src="'+ deviation.image +'" />');
+					});
+				};
+				getDeviations('http://backend.deviantart.com/rss.xml?q=gallery:fishbunnymoney', null, null, null, processDeviations);
 			});	
 		</script>
 	</body>
