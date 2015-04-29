@@ -5,38 +5,78 @@
         <link href="css/roboto.min.css" rel="stylesheet">
         <link href="css/material-fullpalette.min.css" rel="stylesheet">
         <link href="css/ripples.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+        <link rel="stylesheet" href="css/bootstrap-image-gallery.css">
     </head>
-	<body>
-		<h1>fish bunny money</h1>
-		<div id="gallery"></div>
-		<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+    <body>
+        <div class="container">
+            <h1>fish bunny money</h1>
+            <div id="links"></div>
+            <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+            <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-use-bootstrap-modal="false">
+                <!-- The container for the modal slides -->
+                <div class="slides"></div>
+                <!-- Controls for the borderless lightbox -->
+                <h3 class="title"></h3>
+                <a class="prev"><i class="mdi-navigation-chevron-left" style="font-size: .70em;"></i></a>
+                <a class="next"><i class="mdi-navigation-chevron-right" style="font-size: .70em;" ></i></a>
+                <a class="close"><i class="mdi-navigation-close" style></i></a>
+                <a class="play-pause"></a>
+                <ol class="indicator"></ol>
+                <!-- The modal dialog, which will be used to wrap the lightbox content -->
+                <div class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title"></h4>
+                            </div>
+                            <div class="modal-body next"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left prev">
+                                    <i class="glyphicon glyphicon-chevron-left"></i>
+                                    Previous
+                                </button>
+                                <button type="button" class="btn btn-primary next">
+                                    Next
+                                    <i class="glyphicon glyphicon-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        <script src="js/material.min.js"></script>
-        <script src="js/ripples.min.js"></script>
-		<script>
+        <script src="lib/material.min.js"></script>
+        <script src="lib/ripples.min.js"></script>
+        <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+        <script src="lib/bootstrap-image-gallery.min.js"></script>
+        <script>
             $(document).ready(function () {
                 //Get refernce to gallery element
-                var $gallery = $('#gallery');
+                var $gallery = $('#links');
                 //add images to DOM
-				var processDeviations = function (data) {
-				    var deviations = data && data.query && data.query.results && data.query.results.item;
-				    $.each(deviations, function (index, deviation) {
-				        if (deviation.category.label !== 'Applications') {
-				            var imageUrl = deviation.content && deviation.content.url;
-				            $gallery.append('<img src="' + imageUrl + '" />');
-				        }
+                var processDeviations = function (data) {
+                    var deviations = data && data.query && data.query.results && data.query.results.item;
+                    $.each(deviations, function (index, deviation) {
+                        if (deviation.category.label !== 'Applications') {
+                            var imageUrl = deviation.content && deviation.content.url;
+                            $gallery.append('<div class="col-md-2"><a href="'+ imageUrl +'" title="' + deviation.title[0] +'" class="thumbnail" data-gallery><img src="' + deviation.thumbnail[1].url + '" alt="' + deviation.title[0]  + '" /></a></div>');
+                        }
                     });
-				};
-			    //URL of YQL Query URL against Deviant Art RSS URL
+                };
+                //URL of YQL Query URL against Deviant Art RSS URL
                 //Only real purpose is to get around CORS constraint on Deviant Art URL
-				var dataUrl = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%20%3D%20'http%3A%2F%2Fbackend.deviantart.com%2Frss.xml%3Fq%3Dfishbunnymoney%26amp%3Btype%3Ddeviation'&format=json";
+                var dataUrl = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%20%3D%20'http%3A%2F%2Fbackend.deviantart.com%2Frss.xml%3Fq%3Dfishbunnymoney%26amp%3Btype%3Ddeviation'&format=json";
                 //AJAX call from Deviant Art images
-				$.get(dataUrl).done(processDeviations);
-			});	
-		</script>
+                $.get(dataUrl).done(processDeviations);
+            });	
+        </script>
         <script>
             //load up material bootstrap theme javascript
             $.material.init();
         </script>
-	</body>
+    </body>
 </html>
