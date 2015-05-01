@@ -63,7 +63,7 @@
                     $.each(deviations, function (index, deviation) {
                         if (deviation.category.label !== 'Applications') {
                             var imageUrl = deviation.content && deviation.content.url;
-                            $gallery.append('<div class="col-md-2"><a href="'+ imageUrl +'" title="' + deviation.title[0] +'" class="thumbnail" data-gallery><img src="' + deviation.thumbnail[1].url + '" alt="' + deviation.title[0]  + '" /></a></div>');
+                            $gallery.append('<div class="col-xs-6 col-md-3"><a href="'+ imageUrl +'" title="' + deviation.title[0] +'" class="thumbnail" data-gallery><img src="' + deviation.thumbnail[1].url + '" alt="' + deviation.title[0]  + '" /></a></div>');
                         }
                     });
                 };
