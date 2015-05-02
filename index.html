@@ -82,7 +82,7 @@
                                 var imageUrl = deviation.content && deviation.content.url;
                                 var title = deviation.title && deviation.title[0];
                                 var thumbnail = deviation.thumbnail && deviation.thumbnail[1] && deviation.thumbnail[1].url;
-                                $gallery.append('<div class="col-xs-6 col-md-3"><a href="'+ imageUrl +'" title="' + deviation.title[0] +'" class="thumbnail" data-gallery><img src="' + deviation.thumbnail[1].url + '" alt="' + deviation.title[0]  + '" /></a></div>');
+                                $gallery.append('<div class="col-xs-6 col-md-3"><a href="'+ imageUrl +'" title="' + title +'" class="thumbnail" data-gallery><img src="' + thumbnail + '" alt="' + title  + '" /></a></div>');
                                 
                             }
                         });
